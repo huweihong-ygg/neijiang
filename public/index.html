@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="yes" name="apple-mobile-web-app-capable">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+ 
+  <title>登录</title>
+  <style>
+    body {
+      height: 100%;
+    }
+  </style>
+   <script type="text/javascript">
+    var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth
+    winWidth = winWidth < 475 ? 475 : winWidth
+         var oHtml = document.getElementsByTagName('html')[0]
+         oHtml.style.fontSize = 16 * winWidth / 1920 + 'px'
+         
+       window.addEventListener('resize', function () {
+         console.log(1)
+         var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth
+         winWidth = winWidth < 475 ? 475 : winWidth
+         var oHtml = document.getElementsByTagName('html')[0]
+         oHtml.style.fontSize = 16 * winWidth / 1920 + 'px'
+        })
+        </script>
+ 
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+    </noscript>
+    <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.Driving&plugin=AMap.Object3DLayer&plugin=AMap.PolyEditor&callback=onApiLoaded&plugin=AMap.PlaceSearch,AMap.InfoWindow&plugin=AMap.DistrictSearch"></script> -->
+    <!-- <base href="//webapi.amap.com/ui/1.1/ui/overlay/SimpleMarker/examples/" /> -->
+    
+    <!-- <script type="text/javascript"  src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script> -->
+    <!-- <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script> -->
+    
+    
+    <!-- <script language="javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.Driving&plugin=AMap.TileLayer&plugin=Map3D,AMap.DistrictSearch&plugin=AMap.PolyEditor&plugin=AMap.PlaceSearch,AMap.InfoWindow&plugin=AMap.DistrictSearch&callback=initAMap"></script>  -->
+    <!-- <script language="javascript" src="https://webapi.amap.com/maps?v=2.0&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.PolylineEditor"></script>  -->
+    <!-- <script src="//api.map.baidu.com/api?v=3.0&type=webgl&ak=GxV4DSFV47nGChOi07FxQDFcoVNAG6jh"></script> -->
+    <!-- <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=GxV4DSFV47nGChOi07FxQDFcoVNAG6jh"></script> -->
+    <script src="//webapi.amap.com/ui/1.1/main.js?v=1.1.1"></script>     
+    <!-- <script src='http://api.map.baidu.com/api?v=3.0&ak=GxV4DSFV47nGChOi07FxQDFcoVNAG6jh'></script>
+      <script src="//mapv.baidu.com/build/mapv.min.js"></script>
+      <script src="https://code.bdstatic.com/npm/mapvgl@1.0.0-beta.60/dist/mapvgl.min.js"></script> -->
+      <!-- <script src="../src/assets/js/jquery-1.11.0.min.js"></script>
+        <script src="../src/assets/js/jquery.waypoints.min.js"></script>
+        <script src="../src/assets/js/jquery.countup.min.js"></script> -->
+        <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+        <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.Driving&plugin=AMap.PolyEditor&plugin=AMap.PlaceSearch,AMap.InfoWindow&plugin=AMap.DistrictSearch&plugin=AMap.PolylineEditor&plugin=AMap.PolyEditor"></script> -->
+        <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+       
+        
+        <div id="app"></div>
+          <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=a85256967286f2973a2a29e0cdace9b4&plugin=AMap.Driving&plugin=AMap.TileLayer&plugin=Map3D,AMap.DistrictSearch&plugin=AMap.PolyEditor&plugin=AMap.PlaceSearch,AMap.InfoWindow&plugin=AMap.DistrictSearch&callback=initAMap"></script> -->
+</body>
+
+</html>
