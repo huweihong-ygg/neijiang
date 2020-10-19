@@ -80,8 +80,8 @@
           :data="tableData2"
           @row-click="rowclick"
           stripe
-          height="93.5%"
-          style="width:98.6%;margin:auto;height:93.5%"
+          height="90.5%"
+          style="width:98.6%;margin:auto;height:90.5%"
         >
           <el-table-column prop="id" label="编号">
             <template slot-scope="scope">
@@ -123,8 +123,8 @@
           :data="company"
           @row-click="rowclick2"
           stripe
-          height="93.5%"
-          style="width:98.6%;margin:auto;height:93.5%"
+          height="88.5%"
+          style="width:98.6%;margin:auto;height:88.5%"
         >
           <el-table-column prop="name" label="公司名称"></el-table-column>
           <el-table-column prop="bc" label="当日养护人员"></el-table-column>
@@ -744,6 +744,7 @@ export default {
 <style lang="less" scoped>
 .cont_left {
   position: absolute;
+  // overflow-y: auto;
   left: 1.25rem;
   z-index: 99;
   width: 21%;
@@ -754,7 +755,7 @@ export default {
   //   background: #458793;
   .canvas {
     width: 100%;
-    height: 150px;
+    height: 9.375rem;
     position: relative;
     background: rgba(10, 29, 66, 0.9);
     border: 1px solid #026ba3c9;
@@ -816,10 +817,12 @@ export default {
 }
 .curing{
   position: absolute;
+  overflow: hidden;
   z-index: 99;
   right: 22.5%;
   top: 13.5rem;
   width: 25rem;
+  min-width: 300px;
   height: 65%;
   background: rgba(10, 29, 66, 0.9);
   border: 0.0625rem solid #026ba3c9;
@@ -858,7 +861,8 @@ export default {
   right: 1.25rem;
   top: 13.5rem;
   width: 21%;
-  height:38rem;
+  height:55vh;
+  overflow: hidden;
   background: rgba(10, 29, 66, 0.9);
   border: 0.0625rem solid #026ba3c9;
   .title {
@@ -892,11 +896,12 @@ export default {
   position: absolute;
   z-index: 99;
   width: 23.75rem;
+  min-width:245px;
   padding: 0.9375rem;
   font-size: 0.875rem;
   // height: 79%;
   right: 44%;
-  top: 12.25rem;
+  top: 14.25rem;
   //   background: darkgrey;
   background: rgba(10, 29, 66, 0.7);
   border: 0.0625rem solid #026ba3c9;
@@ -944,7 +949,7 @@ export default {
 }
 .item2 {
   font-size: 0.875rem;
-  height: 25rem;
+  height: 19rem;
   overflow-y: auto;
   .list {
     margin-top: 0.9375rem;
@@ -987,6 +992,7 @@ export default {
 #allmap {
   width: 100%;
   height: 100%;
+  min-height: 64rem;
   position: absolute;
   top: 0;
   z-index: 0;

@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     map1() {
-      // ssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+      // 
       var that = this;
       var map = new AMap.Map("map1", {
         resizeEnable: true,
@@ -60,12 +60,12 @@ export default {
         var marker4 = new AMap.Marker({
           // icon: require("../assets/img/icon/icon_mt@1x.png"),
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_bjsj@1x.png"),
+            image: require("../assets/img/icon/yhyj.png"),
             size: new AMap.Size(62, 62), //图标大小
             imageSize: new AMap.Size(32, 32)
           }),
-          map: map,
-          position: item,
+          map:map,
+          position:item,
           offset: new AMap.Pixel(-23, -30)
         });
         marker4.setMap(map);
@@ -76,7 +76,7 @@ export default {
     },
     map2() {
       var that = this;
-      var map = new AMap.Map("map2", {
+      var map = new AMap.Map("map2",{
         resizeEnable: true,
         mapStyle: that.$mapStyle,
         center: [105.068514, 29.588433],
@@ -92,11 +92,11 @@ export default {
         [105.068514, 29.588433],
         [105.070805, 29.586213]
       ];
-      for (var item of zftlist) {
+      for (var item of zftlist){
         var marker4 = new AMap.Marker({
           // icon: require("../assets/img/icon/icon_mt@1x.png"),
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/yjyj.png"),
+             image: require("../assets/img/icon/yhyj.png"),
             size: new AMap.Size(62, 62), //图标大小
             imageSize: new AMap.Size(32, 32)
           }),
@@ -128,11 +128,11 @@ export default {
         [105.068115, 29.600024],
         [105.092646, 29.598424]
       ];
-      for (var item of zftlist) {
+      for (var item of zftlist){
         var marker4 = new AMap.Marker({
           // icon: require("../assets/img/icon/icon_mt@1x.png"),
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/zfyj.png"),
+            image: require("../assets/img/icon/yhyj.png"),
             size: new AMap.Size(62, 62), //图标大小
             imageSize: new AMap.Size(32, 32)
           }),
@@ -168,7 +168,7 @@ export default {
         var marker4 = new AMap.Marker({
           // icon: require("../assets/img/icon/icon_mt@1x.png"),
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/ycyj.png"),
+            image: require("../assets/img/icon/yhyj.png"),
             size: new AMap.Size(62, 62), //图标大小
             imageSize: new AMap.Size(32, 32)
           }),

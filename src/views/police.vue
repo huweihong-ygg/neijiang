@@ -180,6 +180,7 @@
           时间：
           <el-time-select
             v-model="value"
+            icon="none"
             :picker-options="{
     start: '08:30',
     step: '00:05',
@@ -438,27 +439,35 @@ export default {
     },
     map(point, zoom) {
       var that = this;
+       var googleLayer = new AMap.TileLayer({
+        getTileUrl:
+          "http://mt{1,2,3,0}.google.cn/vt/lyrs=s&hl=zh-CN&gl=cn&x=[x]&y=[y]&z=[z]&s=Galile",
+      }); //定义谷歌卫星切片图层
+
       var map = new AMap.Map("allmap2", {
         resizeEnable: true,
         mapStyle: that.$mapStyle,
         center: point,
         // pitch: 47, // 地图俯仰角度，有效范围 0 度- 83 度
         // viewMode: "3D",
-        zoom: zoom
+        zoom: zoom,
       });
       //   addMarker();
       // 构造官方卫星、路网图层
       var satelliteLayer = new AMap.TileLayer.Satellite();
       var roadNetLayer = new AMap.TileLayer.RoadNet();
       document.querySelector("#add-satellite-layer").onclick = function() {
-        map.add(satelliteLayer);
+        map.add(googleLayer);
+       console.log(that.zsbtn) 
       };
 
       document.querySelector("#remove-satellite-layer").onclick = function() {
-        map.remove(satelliteLayer);
+        map.remove(googleLayer);
+        console.log(that.zsbtn) 
+        map.setMapStyle(that.$mapStyle);
       };
       //批量添加图层
-      //   map.add([satelliteLayer]);
+        // map.add([googleLayer]);
       var zftlist = [
         [105.068514, 29.588433],
         [105.070805, 29.586213]
@@ -572,9 +581,13 @@ export default {
   background: transparent;
   height: 2.275rem;
   width: 8.25rem;
+  min-width:100px;
   border: 0.0625rem solid #00f8f8;
   color: #00f8f8;
   height: 2.275rem;
+}
+.policevue .el-icon-time{
+ display: none;
 }
 .address input[type="text"] {
   background: transparent !important;
@@ -584,7 +597,7 @@ export default {
   border: 0.0625rem solid #00f8f8;
   color: #00f8f8;
   background: transparent;
-  height: 2.275rem;
+  height: 2.275rem!important;
 }
 .address .el-select__input {
   color: #00f8f8;
@@ -615,6 +628,7 @@ export default {
   width: 15%;
   position: absolute;
   // margin-top: 1.25rem;
+  overflow-y: auto;
   left: 0;
   height: 100%;
   top: 0;
@@ -646,13 +660,13 @@ export default {
     width: 90%;
     // margin:auto;
     // margin-top: 3.125rem;
-    position: absolute;
-    bottom: 5%;
+    position: relative;
+     margin-top: 2.5rem;
     left: 50%;
-    margin-left: -45%;
+    margin-left: -50%;
     .post_jj {
       width: 100%;
-      height: 5rem;
+      height: 55px;
       background: #000;
       background: url(../assets/img/icon/tab@1x.png);
       background-repeat: no-repeat;
@@ -661,7 +675,7 @@ export default {
       font-weight: bold;
       cursor: pointer;
       text-align: center;
-      line-height: 5rem;
+      line-height: 55px;
     }
   }
 }
@@ -750,6 +764,7 @@ export default {
 #allmap2 {
   width: 100%;
   height: 100%;
+  min-height: 64rem;
   position: absolute;
   top: 0;
   z-index: 0;
@@ -813,6 +828,7 @@ export default {
   > span {
     width: 5.375rem;
     height: 2.1875rem;
+    min-width: 68px;
     line-height: 2.1875rem;
     text-align: center;
     margin-right: 0.625rem;
@@ -868,5 +884,9 @@ export default {
     width: 1.625rem;
     object-fit: contain;
   }
+}
+.date_time{
+  display: inline-block;
+  min-width: 140px;
 }
 </style>

@@ -16,18 +16,20 @@
     }
   </style>
    <script type="text/javascript">
-    var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth
+    var winWidth = document.documentElement.clientHeight || document.body.clientHeight
     winWidth = winWidth < 475 ? 475 : winWidth
          var oHtml = document.getElementsByTagName('html')[0]
-         oHtml.style.fontSize = 16 * winWidth / 1920 + 'px'
+         oHtml.style.fontSize = 16 * winWidth / 1024 + 'px'
          
        window.addEventListener('resize', function () {
          console.log(1)
-         var winWidth = document.documentElement.offsetWidth || document.body.offsetWidth
+         var winWidth = document.documentElement.clientHeight || document.body.clientHeight
          winWidth = winWidth < 475 ? 475 : winWidth
          var oHtml = document.getElementsByTagName('html')[0]
-         oHtml.style.fontSize = 16 * winWidth / 1920 + 'px'
+         oHtml.style.fontSize = 16 * winWidth / 1024 + 'px'
         })
+
+ 
         </script>
  
 </head>
@@ -44,7 +46,7 @@
     <!-- <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script> -->
     
     
-    <!-- <script language="javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.Driving&plugin=AMap.TileLayer&plugin=Map3D,AMap.DistrictSearch&plugin=AMap.PolyEditor&plugin=AMap.PlaceSearch,AMap.InfoWindow&plugin=AMap.DistrictSearch&callback=initAMap"></script>  -->
+    <!-- <script language="javascript" src="https://webapi.amap.com/maps?v=1.4.15&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.Driving&plugin=AMap.TileLayer&plugin=Map3D,AMap.DistrictSearch&plugin=AMap.PolyEditor&plugin=AMap.PlaceSearch,AMap.InfoWindow&callback=initAMap"></script>  -->
     <!-- <script language="javascript" src="https://webapi.amap.com/maps?v=2.0&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.PolylineEditor"></script>  -->
     <!-- <script src="//api.map.baidu.com/api?v=3.0&type=webgl&ak=GxV4DSFV47nGChOi07FxQDFcoVNAG6jh"></script> -->
     <!-- <script type="text/javascript" src="//api.map.baidu.com/api?v=3.0&ak=GxV4DSFV47nGChOi07FxQDFcoVNAG6jh"></script> -->
@@ -56,6 +58,8 @@
         <script src="../src/assets/js/jquery.waypoints.min.js"></script>
         <script src="../src/assets/js/jquery.countup.min.js"></script> -->
         <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+        <!-- <script src="//webapi.amap.com/loca?v=1.3.2&key=cf623a5308b7d477ac7b11b04599bd0b"></script>
+<script src="//a.amap.com/Loca/static/dist/jquery.min.js"></script> -->
         <!-- <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=cf623a5308b7d477ac7b11b04599bd0b&plugin=AMap.Driving&plugin=AMap.PolyEditor&plugin=AMap.PlaceSearch,AMap.InfoWindow&plugin=AMap.DistrictSearch&plugin=AMap.PolylineEditor&plugin=AMap.PolyEditor"></script> -->
         <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
        

@@ -129,8 +129,8 @@
           :data="company"
           @row-click="rowclick2"
           stripe
-          height="93.5%"
-          style="width:98.6%;margin:auto;height:93.5%"
+          height="80.5%"
+          style="width:98.6%;margin:auto;height:82.5%"
         >
         
           <el-table-column prop="name" label="公司名称"></el-table-column>
@@ -387,7 +387,7 @@ var positionlist=[
     var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
     for (var i = 0, marker; i < positionlist.length; i++) {
         var marker = new AMap.Marker({
-          icon:require("../../assets/img/icon/icon_che@1x.png"),
+          icon:require("../../assets/img/icon/icon_yunshucompany@1x.png"),
             position: positionlist[i],
             map: map
         });
@@ -527,6 +527,7 @@ var positionlist=[
 <style lang="less" scoped>
 .cont_left {
   position: absolute;
+  // overflow-y: auto;
   z-index: 99;
   top: 0;
   left: 1.25rem;
@@ -536,7 +537,7 @@ var positionlist=[
   //   background: #458793;
   .canvas {
     width: 100%;
-    height: 150px;
+    height: 9.375rem;
     position: relative;
     background: rgba(10, 29, 66, 0.9);
     border: 1px solid #026ba3c9;
@@ -598,7 +599,9 @@ var positionlist=[
 }
 .curing{
   position: absolute;
+  overflow: hidden;
   z-index: 99;
+  min-width: 300px;
   right: 22.5%;
   top: 13.5rem;
   width: 25rem;
@@ -636,13 +639,14 @@ var positionlist=[
 }
 .cont_right {
   position: absolute;
+  overflow: hidden;
   z-index: 99;
   right: 1.25rem;
-   top: 13.5rem;
+  top: 13.5rem;
   width: 21%;
- height:38rem;
+  height:70vh;
   background: rgba(10, 29, 66, 0.9);
-  border: .0625rem solid #026ba3c9;
+  border: 0.0625rem solid #026ba3c9;
   .title {
     padding: .9375rem .625rem;
     .yh_peo {
@@ -672,11 +676,12 @@ var positionlist=[
   position: absolute;
   z-index: 99;
   width: 23.75rem;
+  min-width:245px;
   padding: .9375rem;
   font-size: .875rem;
   // height: 80%;
  right: 44%;
-  top:12.5rem;
+  top:15.5rem;
 //   background: darkgrey;
 background: rgba(10, 29, 66, 0.7);
   border:.0625rem solid #026ba3c9;
@@ -733,8 +738,9 @@ background: rgba(10, 29, 66, 0.7);
 }
 .item2{
     font-size:.875rem;
-    height: 25rem;
+    height: 15rem;
     overflow-y: auto;
+    margin-bottom: 20px;
     .list{
         margin-top:.9375rem;
     }
@@ -779,7 +785,7 @@ background: rgba(10, 29, 66, 0.7);
     position: absolute;
     width: 100%;
     text-align: center;
-    color: rgb(11, 56, 119);
+    color: #00ff00;
     font-size: .875rem;
     bottom: .625rem;
     cursor: pointer;
@@ -787,6 +793,7 @@ background: rgba(10, 29, 66, 0.7);
 #allmap {
   width: 100%;
   height: 100%;
+  min-height: 64rem;
   position: absolute;
   top: 0;
   z-index: 0;

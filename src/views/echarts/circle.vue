@@ -1,5 +1,5 @@
 <template>
- <div id="myChart" style="width:100%;height:85%"></div>
+ <div id="myChart" style="width:100%;height:12.5rem"></div>
 </template>
 
 <script>
@@ -33,7 +33,7 @@ methods:{
             name: "车辆检测",
             type: "pie",
             radius: ["30%", "70%"], // 设置环形饼状图， 第一个百分数设置内圈大小，第二个百分数设置外圈大小
-            center: ["50%", "50%"],
+            center: ["50%", "55%"],
             data: [
               { value: 95, name: "问题车辆" },
               { value: 310, name: "全部车辆" }
@@ -83,7 +83,7 @@ methods:{
             name: "车辆检测",
             type: "pie",
             radius: ["30%", "70%"], // 设置环形饼状图， 第一个百分数设置内圈大小，第二个百分数设置外圈大小
-            center: ["50%", "50%"],
+            center: ["50%", "55%"],
             data: [
               { value: 95, name: "问题车辆" },
               { value: 310, name: "全部车辆" }

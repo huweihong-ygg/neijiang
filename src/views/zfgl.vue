@@ -401,7 +401,11 @@ export default {
 
 // for(var item of pointlist){
   var marker = new AMap.Marker({
-        icon:require('../assets/img/icon/yellow.png'),
+       icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position:[105.068514,29.588433],
         offset: new AMap.Pixel(-23, -30)
@@ -416,7 +420,11 @@ export default {
     }
 
       var marker1 = new AMap.Marker({
-        icon:'//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
+       icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position:[105.070805,29.586213],
         offset: new AMap.Pixel(-23, -30)
@@ -430,7 +438,11 @@ export default {
       });
 
           var marker2 = new AMap.Marker({
-        icon:require('../assets/img/icon/yellow.png'),
+      icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position:[105.070311,29.593019],
         offset: new AMap.Pixel(-23, -30)
@@ -443,7 +455,11 @@ export default {
           map.setFitView([ marker2 ])
       });
             var marker = new AMap.Marker({
-          icon:'//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
+       icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position:[105.066864,29.586772],
         offset: new AMap.Pixel(-23, 30)
@@ -458,7 +474,11 @@ export default {
 
 
                 var marker3 = new AMap.Marker({
-          icon:'//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png',
+       icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position:[105.065276,29.589338],
         offset: new AMap.Pixel(-23, -30)
@@ -473,7 +493,11 @@ export default {
 
       
                 var marker4 = new AMap.Marker({
-          icon:require('../assets/img/icon/yellow.png'),
+         icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position:[105.067533,29.591489],
         offset: new AMap.Pixel(-23, -30)
@@ -671,6 +695,8 @@ document.querySelector("#add-satellite-layer").onclick = function() {
 }
 .cont_left {
   width: 20%;
+  min-width: 300px;
+  overflow-y: auto;
   height: 100%;
   position: absolute;
   z-index: 99;
@@ -690,7 +716,8 @@ document.querySelector("#add-satellite-layer").onclick = function() {
 
   .item_l {
     width: 100%;
-    height: 23vh;
+    // height: 23vh;
+    // min-height: 12.5rem;
     position: relative;
     margin-top: .5rem;
     padding: .625rem;
@@ -704,6 +731,7 @@ document.querySelector("#add-satellite-layer").onclick = function() {
 .item_l_2 {
   position: relative;
   height: 26vh;
+  min-height: 15.625rem;
   padding:.625rem;
   background: rgba(20, 44, 90, 0.9);
 }
@@ -730,6 +758,8 @@ document.querySelector("#add-satellite-layer").onclick = function() {
   position: absolute;
   width: 5rem;
   height: 5rem;
+  min-width:55px;
+  min-height:55px;
   padding: 1.25rem;
   text-align: center;
   top: 50%;
@@ -757,6 +787,7 @@ document.querySelector("#add-satellite-layer").onclick = function() {
 }
 .item_l_3 {
   width: 100%;
+  min-height: 15.625rem;
   height: 29vh;
   position: relative;
 
@@ -769,6 +800,8 @@ document.querySelector("#add-satellite-layer").onclick = function() {
 
 .cont_right {
   width: 20%;
+  min-width: 300px;
+  overflow-y: auto;
   height:100%;
   position: absolute;
  background: rgb(8, 23, 62);
@@ -881,6 +914,7 @@ top: 0;
   font-size: 1rem;
   > span {
     width: 5.375rem;
+    min-width: 68px;
     height: 2.1875rem;
     line-height: 2.1875rem;
     text-align: center;
@@ -1016,6 +1050,7 @@ top: 0;
 #allmap2 {
   width: 100%;
   height: 100%;
+  min-height: 64rem;
   position: absolute;
   top: 0;
   z-index: 0;
@@ -1025,7 +1060,7 @@ top: 0;
   position: fixed;
   bottom:.625rem;
   color: #00f8f8;
-  right:-73%;
+  right:-76%;
   >button{
       background: rgba(13, 36, 86, 0.8);
   }

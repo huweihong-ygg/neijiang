@@ -147,6 +147,7 @@ export default {
     //批量添加图层
     map.add([satelliteLayer]);
     var marker1 = new AMap.Marker({
+       icon:require("../../assets/img/icon/icon_weixiu@1x.png"),
       position: [105.06093390709741, 29.586945225112032],
       // icon:
       //   "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png",
@@ -162,14 +163,14 @@ export default {
     marker1.setLabel({
       direction: "right",
       offset: new AMap.Pixel(2, 0), //设置文本标注偏移量
-      content: "<div style='color:#f00;border:0'>滴滴维修站</div>" //设置文本标注内容
+      content: "<div style='color:#fff;border:0'>滴滴维修站</div>" //设置文本标注内容
     });
     marker1.on("click", function() {
       that.innercont = true;
     });
     var marker2 = new AMap.Marker({
       position: [105.0674376389875, 29.58303485797507],
-    
+     icon:require("../../assets/img/icon/icon_weixiu@1x.png"),
       anchor: "bottom-center",
       offset: new AMap.Pixel(0, 0)
     });
@@ -182,13 +183,14 @@ export default {
     marker2.setLabel({
       direction: "right",
       offset: new AMap.Pixel(2, 0), //设置文本标注偏移量
-      content: "<div style='color:#f00;border:0'>刘哥汽车维修站</div>" //设置文本标注内容
+      content: "<div style='color:#fff;border:0'>刘哥汽车维修站</div>" //设置文本标注内容
     });
     marker2.on("click", function() {
       that.innercont = true;
     });
 
     var marker3 = new AMap.Marker({
+       icon:require("../../assets/img/icon/icon_weixiu@1x.png"),
       position: [105.07355866119736, 29.591609197779086],
       anchor: "bottom-center",
       offset: new AMap.Pixel(0, 0)
@@ -200,9 +202,10 @@ export default {
     // 设置label标签
     // label默认蓝框白底左上角显示，样式className为：amap-marker-label
     marker3.setLabel({
+       icon:require("../../assets/img/icon/icon_weixiu@1x.png"),
       direction: "right",
       offset: new AMap.Pixel(2, 0), //设置文本标注偏移量
-      content: "<div style='color:#f00;border:0'>丰田维修站</div>" //设置文本标注内容
+      content: "<div style='color:#fff;border:0'>丰田维修站</div>" //设置文本标注内容
     });
     marker3.on("click", function() {
       that.innercont = true;
@@ -246,7 +249,7 @@ export default {
 .cont_top {
   width: 94%;
   // height: 45%;
-    min-height: 24.25rem;
+    min-height: 18.25rem;
   height: 40vh;
   margin: auto;
   margin-top: 3.125rem;
@@ -297,10 +300,12 @@ export default {
    height: 34vh;
   position: relative;
   margin: auto;
+  overflow: hidden;
   margin-top: 1.25rem;
+      bottom: 0.625rem;
   z-index: 99;
   .search_tit {
-    padding: 0.625rem;
+    padding: 0.625rem 0.625rem 0;
   }
   .jxjk {
     font-size: 1.125rem;
@@ -405,7 +410,7 @@ export default {
   width: 4.4375rem;
   bottom:.625rem;
   color: #00f8f8;
-  right:.625rem;
+  right:1%;
   > button {
     background: rgba(13, 36, 86, 0.8);
   }

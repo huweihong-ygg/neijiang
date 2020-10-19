@@ -324,7 +324,7 @@ export default {
               { max: 180, text: "违章情况"}
             ],
             center: ["50%", "50%"],
-            radius: 80,
+            radius:["0","60"],
             shape: "circle",
             name: {
               formatter: "{value}",
@@ -358,6 +358,7 @@ export default {
 .content {
   width: 96%;
   height: 76vh;
+  min-height: 60vh;
   margin: 2.75rem auto 0;
   font-size: 0.875rem;
   .cont_left {
@@ -366,6 +367,7 @@ export default {
     > div {
       width: 32.5%;
       height: 49%;
+      overflow: hidden;
       background: rgba(14, 37, 86, 0.9);
       position: relative;
       padding: 0.825rem;

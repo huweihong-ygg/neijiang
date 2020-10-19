@@ -210,7 +210,7 @@
 
       <div class="f4bg table2">
         <fourbg></fourbg>
-        <div class="flex-between" style="padding-right:.8rem;padding-top:.8rem">
+        <div class="flex-between selected_xia" style="padding-right:.8rem;padding-top:.8rem">
           <p class="tit">今日固定班次工作车辆</p>
           <el-select v-model="value" filterable placeholder="请选择线路">
             <el-option
@@ -275,7 +275,7 @@
 
       <div class="table3">
         <fourbg></fourbg>
-        <div class="flex-between" style="padding-right:.8rem;padding-top:.8rem">
+        <div class="flex-between selected_xia" style="padding-right:.8rem;padding-top:.8rem">
           <p class="tit">今日区域班次工作车辆</p>
 
           <el-select v-model="value" filterable placeholder="请选择区域">
@@ -320,7 +320,7 @@
     </div>
     <!-- 长的查看 -->
     <div class="long_kan" v-if="long_look">
-      <div class="flex-between top_tit">
+      <div class="flex-between  top_tit">
         <span>川K4586</span>
         <i class="el-icon-close" @click="()=>{this.centerbox=true;this.long_look=false}"></i>
       </div>
@@ -379,8 +379,6 @@
       </div>
       <div class="imgbox flex-around flex-wrap">
         <img class="one_img" src="../../assets/img/icon3/1.png" alt />
-        <img class="two_img" src="../../assets/img/icon3/1.png" alt />
-        <img class="two_img" src="../../assets/img/icon3/1.png" alt />
         <img class="two_img" src="../../assets/img/icon3/1.png" alt />
         <img class="two_img" src="../../assets/img/icon3/1.png" alt />
         <img class="two_img" src="../../assets/img/icon3/1.png" alt />
@@ -1090,6 +1088,12 @@ var path=[
 .el-select-dropdown__item {
   color: #fff;
 }
+.selected_xia i{
+  line-height: 0!important;
+}
+.selected_xia .el-input__inner{
+  min-width: 105px;
+}
 .table3 input.el-input__inner,
 .table2 input.el-input__inner {
   background: transparent;
@@ -1167,8 +1171,9 @@ span {
 }
 .cont_left {
   position: absolute;
+  overflow-y: auto;
   z-index: 99;
-  width: 22%;
+  width: 7.4%;
     height: 100%;
   //   background: coral;
   left: 1.25rem;
@@ -1378,11 +1383,12 @@ span {
   width: 21%;
   height: 100%;
   top:0;
+  overflow-y: auto;
   padding-top: 10.5rem;
-  right: 1.25rem;
+  right: 0;
   // background: oldlace;
   .table2 {
-    min-height: 15.125rem;
+    min-height: 198px;
     height: 26vh;
     .tit {
       font-size: 1.125rem;
@@ -1425,7 +1431,8 @@ span {
   position: absolute;
   z-index: 99;
   right: 23%;
-  top: 15%;
+  top:10.3125rem;
+  min-width: 215px;
   width: 17.5rem;
   min-height: 80%;
   min-height: 48.4375rem;
@@ -1445,6 +1452,8 @@ span {
     div {
       width: 6.875rem;
       height: 2.1875rem;
+      min-width: 90px;
+      min-height: 24px;
       text-align: center;
       font-size: 0.875rem;
       color: #0086fb;
@@ -1492,7 +1501,8 @@ span {
 
 .daycar {
   width: 8.5rem;
-  height: 20.75rem;
+  // height: 20.75rem;
+  min-width: 100px;
   background: rgba(20, 44, 90, 0.9);
   position: relative;
   padding: 0.9375rem 0.625rem;
@@ -1545,7 +1555,7 @@ span {
 
 .cartj {
   width: 100%;
-  min-height: 12.5rem;
+  min-height: 155px;
   height: 20vh;
   margin-top: 0.625rem;
   position: relative;
@@ -1583,7 +1593,7 @@ span {
   }
 }
 .table3 {
-  min-height: 13rem;
+  min-height: 210px;
   height:22vh;
   position: relative;
   margin-top: 0.9375rem;
@@ -1597,6 +1607,7 @@ span {
 #allmap4 {
   width: 100%;
   height: 100%;
+  min-height: 64rem;
   position: absolute;
   top: 0;
   z-index: 0;
@@ -1626,7 +1637,7 @@ span {
   position: fixed;
   bottom: 0.625rem;
   color: #00f8f8;
-  right: -73%;
+  right: -3%;
   > button {
     background: rgba(13, 36, 86, 0.8);
   }

@@ -25,9 +25,9 @@
       <!-- 实时视频监控画面 -->
       <div class="monitor">
         <div class="tit">
-          <img src="../assets/img/icon/fk.png" alt /> 实时视频监控画面
+          <img src="../assets/img/icon/fk.png" alt   style="wdith:1.5rem;height:1.5rem"/> 实时视频监控画面
           <div class="tit_bot_img">
-            <img src="../assets/img/xiugai/biankuang@1x.png" alt="">
+            <img src="../assets/img/xiugai/biankuang@1x.png"  alt="">
           </div>
         </div>
         <div class="changebtn flex-around">
@@ -40,7 +40,9 @@
         </div>
         <div class="flex-between flex-wrap videobox">
           <div v-for="(item,i) of 16" :key="i" @click.stop="change1map">
+            <!-- <video :controls="i==0?true:false" src="../assets/img/huasan.mp4"></video> -->
             <video :controls="i==0?true:false" src="../assets/img/huasan.mp4"></video>
+              
             <p class="video_bot flex-between" style="cursor: pointer;">
               <span>
                 <span class="gre_cir"></span> 环城路路口
@@ -133,21 +135,20 @@
       </div>
     </div>
     <div id="allmap"></div>
-
     <div class="input-item">
       <button
         class="btn"
         v-show="zsbtn"
         @click="()=>{this.zsbtn=!this.zsbtn}"
-        id="add-satellite-layer"
+        id="remove-satellite-layer"
         style="margin-right:1rem;"
-      >切换3D</button>
+      >切换2D</button>
       <button
         class="btn"
         v-show="!zsbtn"
         @click="()=>{this.zsbtn=!this.zsbtn}"
-        id="remove-satellite-layer"
-      >切换2D</button>
+        id="add-satellite-layer"
+      >切换3D</button>
     </div>
   </div>
 </template>
@@ -226,7 +227,7 @@ export default {
           bool: true
         },
         {
-          img: require("../assets/img/icon/icon_jiankong@1x.png"),
+          img: require("../assets/img/icon/icon_jiankong@2x.png"),
           tit: "城市监控",
           num: 42354,
           bool: false
@@ -264,7 +265,7 @@ export default {
         },
 
         {
-          img: require("../assets/img/icon/icon_matou@1x.png"),
+          img: require("../assets/img/icon/icon_matou@2x.png"),
           tit: "码头",
           num: 52,
           bool: false
@@ -321,28 +322,31 @@ export default {
     },
     map(center, zoom) {
       var that = this;
-      //   var googleLayer = new AMap.TileLayer({
-      //   getTileUrl:
-      //     "http://mt{1,2,3,0}.google.cn/vt/lyrs=s&hl=zh-CN&gl=cn&x=[x]&y=[y]&z=[z]&s=Galile",
-      // }); //定义谷歌卫星切片图层
+        var googleLayer = new AMap.TileLayer({
+        getTileUrl:
+          "http://mt{1,2,3,0}.google.cn/vt/lyrs=s&hl=zh-CN&gl=cn&x=[x]&y=[y]&z=[z]&s=Galile",
+      }); //定义谷歌卫星切片图层
       var map = new AMap.Map("allmap", {
         resizeEnable: true,
-        disableSocket:true,
-        viewMode:'3D',
+        // disableSocket:true,
+        // viewMode:'3D',
         mapStyle:that.$mapStyle,
+        //  isHotspot: false,
+        // showLabel:false,
         center: center,
-        pitch: 53, // 地图俯仰角度，有效范围 0 度- 83 度/
+        // pitch: 53, // 地图俯仰角度，有效范围 0 度- 83 度/
         // viewMode: "3D",
         zoom: zoom,
         // layers: [googleLayer], //设置图层
       });
+      
       addMarker();
       // 构造官方卫星、路网图层
       var satelliteLayer = new AMap.TileLayer.Satellite();
 
       //批量添加图层
       // that.$nextTick(()=>{
-        map.add([satelliteLayer]);
+        // map.add([satelliteLayer]);
       // }) 
       // map.setMapStyle(that.$mapStyle);
        
@@ -360,10 +364,10 @@ export default {
       for (var item of yhcompany) {
         var marker4 = new AMap.Marker({
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/yhcompany.png"),
-            size: new AMap.Size(62, 62) //图标大小
-            // imageSize: new AMap.Size(32, 32)
-          }),
+              image: require("../assets/img/icon/icon_yanghucompany@1x.png"),
+              size: new AMap.Size(62, 62), //图标大小
+              // imageSize: new AMap.Size(32, 32)
+            }),
           map: map,
           position: item.point,
           offset: new AMap.Pixel(-23, -30)
@@ -378,7 +382,7 @@ export default {
       for (var item of yscompany) {
         var marker4 = new AMap.Marker({
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/yscompany.png"),
+            image: require("../assets/img/icon/icon_yunshucompany@1x.png"),
             size: new AMap.Size(62, 62) //图标大小
             // imageSize: new AMap.Size(32, 32)
           }),
@@ -404,11 +408,11 @@ export default {
       for (var item of matou) {
         var marker4 = new AMap.Marker({
           // icon: require("../assets/img/icon/icon_mt@1x.png"),
-          icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_mt@1x.png"),
-            size: new AMap.Size(62, 62), //图标大小
-            imageSize: new AMap.Size(32, 32)
-          }),
+         icon: new AMap.Icon({
+              image: require("../assets/img/icon/icon_matou.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
           map: map,
           position: item.mat,
           offset: new AMap.Pixel(-23, -30)
@@ -433,11 +437,11 @@ export default {
       for (var item of jk) {
         var marker4 = new AMap.Marker({
           // icon: require("../assets/img/icon/icon_yh@1x.png"),
-          icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_yh@1x.png"),
-            size: new AMap.Size(62, 62), //图标大小
-            imageSize: new AMap.Size(32, 32)
-          }),
+           icon: new AMap.Icon({
+              image: require("../assets/img/icon/icon_yanghu@1x.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
           map: map,
           position: item.point,
           offset: new AMap.Pixel(-23, -30)
@@ -458,12 +462,12 @@ export default {
       ];
       for (var item of kakou) {
         var marker4 = new AMap.Marker({
-          icon: require("../assets/img/icon/daolik.png"),
-          //                icon: new AMap.Icon({
-          //             image:   require("../assets/img/icon/daolik.png"),
-          //             size: new AMap.Size(62, 62),  //图标大小
-          //             imageSize: new AMap.Size(36,36)
-          //         }),
+          // icon: require("../assets/img/icon/daolik.png"),
+          icon: new AMap.Icon({
+              image: require("../assets/img/icon/icon_daolukakou@1x.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
           map: map,
           position: item.point,
           offset: new AMap.Pixel(-23, -30)
@@ -481,10 +485,10 @@ export default {
         var marker4 = new AMap.Marker({
           // icon: require("../assets/img/icon/icon_che@1x.png"),
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_che@1x.png"),
-            size: new AMap.Size(62, 62), //图标大小
-            imageSize: new AMap.Size(32, 32)
-          }),
+              image: require("../assets/img/icon/icon_gongjiao@1x.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
           map: map,
           position: item.point,
           offset: new AMap.Pixel(-23, -30)
@@ -505,10 +509,10 @@ export default {
         var marker4 = new AMap.Marker({
           // icon:,
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_wxz@1x.png"),
-            size: new AMap.Size(62, 62), //图标大小
-            imageSize: new AMap.Size(32, 32)
-          }),
+              image: require("../assets/img/icon/icon_weixiu@1x.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
           map: map,
           position: item.point,
           offset: new AMap.Pixel(-23, -30)
@@ -536,10 +540,10 @@ export default {
         // });
         var marker = new AMap.Marker({
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_bjsj@2x.png"),
-            size: new AMap.Size(62, 62), //图标大小
-            imageSize: new AMap.Size(36, 36)
-          }),
+              image: require("../assets/img/icon/icon_gaojing@1x.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
           map: map,
           zIndex: 500,
           position: [105.06675492680017, 29.586301350821902],
@@ -556,10 +560,10 @@ export default {
 
       var marker2 = new AMap.Marker({
         icon: new AMap.Icon({
-          image: require("../assets/img/icon/icon_bjsj@2x.png"),
-          size: new AMap.Size(62, 62), //图标大小
-          imageSize: new AMap.Size(36, 36)
-        }),
+              image: require("../assets/img/icon/icon_gaojing@1x.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
         map: map,
         zIndex: 500,
         position: [105.0674376389875, 29.58303485797507],
@@ -576,11 +580,11 @@ export default {
       var marker3 = new AMap.Marker({
         // icon: ,
         map: map,
-        icon: new AMap.Icon({
-          image: require("../assets/img/icon/icon_bjsj@2x.png"),
-          size: new AMap.Size(62, 62), //图标大小
-          imageSize: new AMap.Size(36, 36)
-        }),
+         icon: new AMap.Icon({
+              image: require("../assets/img/icon/icon_gaojing@1x.png"),
+              size: new AMap.Size(32, 36), //图标大小
+              imageSize: new AMap.Size(32, 36),
+            }),
         zIndex: 500,
         position: [105.07355866119736, 29.591609197779086],
         offset: new AMap.Pixel(-23, -40)
@@ -645,15 +649,17 @@ export default {
       }
       
       document.querySelector("#add-satellite-layer").onclick = function() {
-        map.add(satelliteLayer);
+        // map.add(satelliteLayer);
+           map.add(googleLayer);
         //  console.log(that.zsbtn)
       };
 
       document.querySelector("#remove-satellite-layer").onclick = function() {
-        map.remove(satelliteLayer);
-        //  map.setMapStyle(that.$mapStyle);
-        //  console.log(that.zsbtn)
-          // mapStyle:that.$mapStyle,
+        // map.remove(satelliteLayer);
+          map.remove(googleLayer);
+        console.log(that.zsbtn) 
+        map.setMapStyle(that.$mapStyle);
+     
       };
 
       //  { point: [105.06323,29.582053], text: "西林大道卡口" },
@@ -676,10 +682,14 @@ export default {
       //   ];
 
       var markerxl = new AMap.Marker({
-        icon: require("../assets/img/icon/yellowkk (1).png"),
+    icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_kakou@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position: [105.062195, 29.58168],
-        offset: new AMap.Pixel(0, -15)
+        offset: new AMap.Pixel(-10, -25)
       });
 
       markerxl.setMap(map);
@@ -689,7 +699,11 @@ export default {
       });
 
       var markerxl2 = new AMap.Marker({
-        icon: require("../assets/img/icon/yellowkk (1).png"),
+      icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_kakou@1x.png"),
+            size: new AMap.Size(32, 36), //图标大小
+            imageSize: new AMap.Size(32, 36),
+          }),
         map: map,
         position: [105.069882, 29.587595],
         offset: new AMap.Pixel(0, -15)
@@ -844,6 +858,7 @@ export default {
   background: transparent;
   height: 2.275rem;
   width: 8.25rem;
+  min-width: 100px;
   border: 0.0625rem solid #00f8f8;
   color: #00f8f8;
   height: 2.275rem;
@@ -910,6 +925,7 @@ div.el-picker-panel {
 .cont_left {
   width: 15%;
   position: absolute;
+  overflow-y: auto;
   // margin-top: 1.25rem;
   left: 0;
   height: 100%;
@@ -947,13 +963,14 @@ div.el-picker-panel {
     width: 90%;
     // margin:auto;
     // margin-top: 3.125rem;
-    position: absolute;
-    bottom: 3%;
+    position: relative;
+    bottom: 1%;
     left: 50%;
-    margin-left: -45%;
+    margin-top: 2.5rem;
+    margin-left: -50%;
     .post_jj {
       width: 100%;
-      height: 5rem;
+      height:55px;
       background: #000;
       background: url(../assets/img/icon/tab@1x.png);
       background-repeat: no-repeat;
@@ -962,7 +979,7 @@ div.el-picker-panel {
       font-weight: bold;
       cursor: pointer;
       text-align: center;
-      line-height: 5rem;
+      line-height: 55px;
     }
   }
 }
@@ -970,6 +987,7 @@ div.el-picker-panel {
   width: 22%;
   padding: 0 1.25rem;
   position: absolute;
+    overflow-y: auto;
   height: 100%;
   background: rgb(8, 23, 62);
   top: 0%;
@@ -1015,7 +1033,8 @@ div.el-picker-panel {
       display: block;
       width: 4.375rem;
       height: 1.5875rem;
-      line-height: 1.5875rem;
+      min-width:60px;
+      min-height: 16px;
       text-align: center;
       border-radius: 0.9375rem;
       font-size: 0.875rem;
@@ -1130,7 +1149,7 @@ div.el-picker-panel {
   position: absolute;
   z-index: 99;
   right: 25%;
-  top: 35%;
+  top: 26%;
   border: 0.0625rem solid #026ba3c9;
   padding: 0.9375rem;
   background: rgba(13, 36, 86, 0.7);
@@ -1145,6 +1164,8 @@ div.el-picker-panel {
   }
   .date_time {
     margin-right: 1.25rem;
+        display: inline-block;
+    min-width: 140px;
   }
 }
 .carlist_box,
@@ -1165,6 +1186,7 @@ div.el-picker-panel {
   > span {
     width: 5.375rem;
     height: 2.1875rem;
+    min-width: 70px;
     line-height: 2.1875rem;
     text-align: center;
     margin-right: 0.625rem;
@@ -1224,6 +1246,7 @@ div.el-picker-panel {
 #allmap {
   width: 100%;
   height: 100%;
+  min-height: 64rem;
   position: absolute;
   top: 0;
   z-index: 0;
@@ -1231,14 +1254,19 @@ div.el-picker-panel {
 
 .input-item {
   position: fixed;
-  bottom: 0.625rem;
+  bottom: 1.625rem;
+  z-index: 99;
   color: #00f8f8;
-  right: -73%;
+  right: -16%;
   > button {
     background: rgba(13, 36, 86, 0.8);
   }
   button:hover {
     background: #0086fb;
   }
+}
+.tit_bot_img{
+  margin-top:-.7rem;
+  margin-bottom: .5rem;
 }
 </style>

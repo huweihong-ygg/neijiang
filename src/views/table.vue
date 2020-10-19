@@ -750,6 +750,7 @@ export default {
   border: 0.0625rem solid #00f8f8;
   color: #00f8f8;
   height: 2.275rem;
+  min-height: 24px;
 }
 .datesearch .el-date-editor .el-range__icon {
   line-height: 2.225rem;
@@ -825,6 +826,9 @@ export default {
 .el-select-dropdown__item {
   color: #fff;
 }
+.right_search input.el-input__inner{
+min-width: 130px;
+}
 .tablevue input.el-input__inner,
 .tablevue input.el-input__inner {
   background: transparent;
@@ -833,6 +837,7 @@ export default {
   border: 0.0625rem solid #00f8f8;
   color: #00f8f8;
   height: 2.275rem;
+  min-height: 24px;
 }
 .tablevue .el-table--striped .el-table__body tr.el-table__row--striped td {
   background: rgba(10, 29, 66, 0.7);
@@ -941,14 +946,14 @@ export default {
     height: 90%;
     width: 100%;
     .excel {
-      width: 150px;
+      width: 9.375rem;
       background: #0086fb;
       height: 2.1875rem;
       border-radius: 0.9375rem;
       text-align: center;
       line-height: 2.1875rem;
       float: right;
-      margin-top: 0.625rem;
+      margin-top: -1.625rem;
       cursor: pointer;
       margin-right: 0.625rem;
       transition: 0.3s;

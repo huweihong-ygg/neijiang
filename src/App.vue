@@ -76,8 +76,9 @@ p {
 }
 body{
   /* background:url(./assets/img/jt.jpg); */
-       background: rgb(7, 23, 60);
-  /* background-size: 100%; */
+       background: url(./assets/img/icon/bg@1x.png);
+       /* background: pink; */
+  background-size: 100%;
 }
 main {
   /* background: #999 !important; */

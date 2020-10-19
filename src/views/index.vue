@@ -33,7 +33,7 @@
           <div class="logo flex-center">
             <div class="center flex">
                 <img src="../assets/img/new_icon/logo@1x.png" alt="">
-                <span class="name">内江市市中区智慧交通平台</span>
+                <span class="name">内江市中区交通运输平台</span>
                 <!-- <img class="liangguang" src="../assets/img/xiugai/liangguang@1x.png" alt=""> -->
               </div>
           </div>
@@ -171,7 +171,7 @@ function PrefixZero(num, n) {
 
 <style lang="less" scoped>
 .header_center {
-  width: 46.25rem;
+  width: 60.25rem;
   margin:auto;
   height: 3.125rem;
   // background: #;

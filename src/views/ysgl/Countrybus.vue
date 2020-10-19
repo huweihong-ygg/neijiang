@@ -118,7 +118,7 @@
       <!-- 4 -->
       <div class="table2 ysglvuetable">
         <p class="one_tit">当日进站重点人员</p>
-        <el-table :data="tableData" stripe height="88%" style="width: 98.6%;margin:auto;heigth:88%">
+        <el-table :data="tableData" stripe height="88%" style="width: 98.6%;margin:auto;heigth:88%;min-height:200px">
           <el-table-column prop="date" label="通过时间"></el-table-column>
           <el-table-column prop="name" label="姓名"></el-table-column>
           <el-table-column prop="mes" label="信息"></el-table-column>
@@ -141,7 +141,7 @@
       <!-- 公司表 -->
       <div class="companytable" style="height:70vh">
         <fourbg></fourbg>
-            <div class="flex-between" style="padding:.8rem 1rem">
+            <div class="flex-between selected_xia" style="padding:.8rem 1rem">
           <p class="one_tit" style="margin-top:.5rem">交通运输管理</p>
           <el-select v-model="value" filterable placeholder="请选择公司">
             <el-option
@@ -203,7 +203,7 @@
 
       <div class="ysglvuetable carlinebox"  v-show="linetable">
              <fourbg></fourbg>
-        <div class="flex-between" style="padding:.5rem 1rem">
+        <div class="flex-between selected_xia" style="padding:.5rem 1rem">
           <p class="one_tit" style="margin-top:.5rem">黄桷井汽车站</p>
              <el-select v-model="value" filterable placeholder="请选择区域">
             <el-option
@@ -234,8 +234,15 @@
       </div>
 
     <div class="center_bit">
-      <p class="one_tit">站内监控</p>
-      <div class="sg_img flex-wrap">
+      
+      <div class="one_tit">站内监控
+   <div style="position:absolute;left:50%;margin-left:2.1875rem;margin-top:-1.875rem" @click="centerbitboolclick">
+        <el-button  type="" v-if="centerbitbool" icon="el-icon-caret-bottom" plain style="height:1.875rem;width:4.375rem;padding:0"></el-button>
+        <el-button type="" v-else icon="el-icon-caret-top" plain style="height:1.875rem;width:4.375rem;padding:0"></el-button>
+    </div>
+        
+      </div>
+      <div class="sg_img flex-wrap" v-show="centerbitbool">
         <!-- <img
           @click="()=>{centerbox=true}"
           src="../../assets/img/icon3/1.png"
@@ -340,6 +347,7 @@ export default {
   },
   data() {
     return {
+      centerbitbool:false,
       centerbox: true,
       linetable:false,
       zsbtn:true,
@@ -666,6 +674,9 @@ export default {
   
   },
   methods: {
+    centerbitboolclick(){
+      this.centerbitbool=!this.centerbitbool
+    },
     phonesj(){//司机连线
       window.location.href='tel://18512828295'
     },
@@ -682,7 +693,7 @@ var map = new AMap.Map("allmap3", {
     var roadNetLayer = new AMap.TileLayer.RoadNet();
       var marker = new AMap.Marker({
           map: map,
-            icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+            icon:require("../../assets/img/icon/icon_gongjiao@1x.png"),
           position: [105.06772,29.576237],
           offset: new AMap.Pixel(-23, -30)
         });
@@ -844,6 +855,10 @@ var map = new AMap.Map("allmap3", {
 <style>
 .ysglvuetable .el-progress-bar__outer,.companytable .el-progress-bar__outer{
   background: transparent;
+ 
+}
+.el-progress-bar__outer{
+ height: 0.9375rem!important;
 }
 .ysglvuetable .el-table th ,.companytable .el-table th{
   text-align: center;
@@ -893,6 +908,12 @@ var map = new AMap.Map("allmap3", {
   background: #0086fb;
   cursor: pointer;
 }
+.selected_xia i{
+  line-height: 0!important;
+}
+.selected_xia .el-input__inner{
+  min-width: 105px;
+}
 .ysglvue .table2 tr > th:nth-child(1),
 .ysglvue .table2 tr > td:nth-child(1) {
   width: 35%;
@@ -925,6 +946,7 @@ var map = new AMap.Map("allmap3", {
   height: 100%;
   // background:palevioletred;
   position: absolute;
+  overflow-y: auto;
   z-index: 99;
   left: 1.25rem;
   top:0;
@@ -953,6 +975,7 @@ var map = new AMap.Map("allmap3", {
   width: 20%;
   height: 100%;
   // background:palevioletred;
+  overflow-y: auto;
   position: absolute;
   z-index: 99;
   right: 1.25rem;
@@ -977,7 +1000,7 @@ var map = new AMap.Map("allmap3", {
   // background: url(../../assets/img/icon3/bg@1x.png);
    background: rgba(20, 44, 90, 0.9);
   background-size: 100% 100%;
-  height: 22vh;
+  // height: 22vh;
     min-height: 12.975rem;
   background-repeat: no-repeat;
   .one_tit {
@@ -1122,7 +1145,7 @@ var map = new AMap.Map("allmap3", {
   background: rgba(20, 44, 90, 0.9);
 
   width: 54%;
-  height: 17.5rem;
+  // height: 17.5rem;
   bottom: 0.625rem;
   left: 51%;
   margin-left: -27%;
@@ -1136,6 +1159,7 @@ var map = new AMap.Map("allmap3", {
     font-weight: bold;
   }
   .sg_img {
+    height: 15.5rem;
         img {
       width: 8.375rem;
       height: 6.25rem;
@@ -1244,6 +1268,7 @@ var map = new AMap.Map("allmap3", {
   right: 44%;
   top: 14.5rem;
   width: 17.5rem;
+  min-width: 215px;
   // height: 78%;
   // min-height: 48.4375rem;
   border: 0.0625rem solid #00b6fb;
@@ -1254,6 +1279,8 @@ var map = new AMap.Map("allmap3", {
     div {
       width: 6.875rem;
       height: 2.1875rem;
+      min-width: 90px;
+      min-height: 24px;
       text-align: center;
       font-size: 0.875rem;
       color: #0086fb;
@@ -1309,6 +1336,7 @@ var map = new AMap.Map("allmap3", {
 #allmap3 {
   width: 100%;
   height: 100%;
+  min-height: 64rem;
   position: absolute;
   top: 0;
   z-index: 0;
@@ -1316,9 +1344,10 @@ var map = new AMap.Map("allmap3", {
 
 .cartj {
   width: 100%;
-  height: 24vh;
+  height: 14.5rem;
   min-height: 14.5rem;
   margin-top: 0.625rem;
+  overflow: hidden;
   position: relative;
   background: rgba(20, 44, 90, 0.9);
   .cartit {
@@ -1332,6 +1361,8 @@ var map = new AMap.Map("allmap3", {
         display: block;
         width: 3.425rem;
         height: 1.35rem;
+        min-width: 55px;
+        min-height: 18px;
         border-radius: 0.9375rem;
         text-align: center;
         border: 0.0625rem solid #0086fb;
@@ -1346,8 +1377,11 @@ var map = new AMap.Map("allmap3", {
     }
   }
   .carpost {
+   
     > div {
       width: 40%;
+      height:11rem;
+      overflow-y: auto;
     }
     p {
       display: flex;
@@ -1375,7 +1409,7 @@ var map = new AMap.Map("allmap3", {
 .input-item{
   position: absolute;
   width: 4.4375rem;
-  bottom:18.125rem;
+  bottom:5.225rem;
   color: #00f8f8;
   left:24%;
   >button{
@@ -1396,7 +1430,8 @@ var map = new AMap.Map("allmap3", {
   background: rgba(20, 44, 90, 0.9);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  max-height: 70vh!important;
+  min-height: 70vh!important;
+  overflow: hidden;
   .one_tit {
   font-size: 1.125rem;
   margin-bottom: 0.625rem;
@@ -1407,6 +1442,7 @@ var map = new AMap.Map("allmap3", {
 .carlinebox{
   width: 25rem;
   height: 26rem;
+  min-width: 310px;
    position: absolute;
    top: 14rem;
   right: 22%;

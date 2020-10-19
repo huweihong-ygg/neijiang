@@ -134,10 +134,14 @@
    z-index: 99;
  }
  .tit_bot_img{
-   height: .9375rem;
+   /* height: .9375rem; */
  }
  .tit_bot_img img{
    width: 100%;
  
  }
+ ::-webkit-input-placeholder { /* WebKit browsers */
+  color: #999;
+  font-size:0.875rem;
+}
  

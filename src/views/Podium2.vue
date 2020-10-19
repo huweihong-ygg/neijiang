@@ -173,10 +173,22 @@
 
     <div class="center_box">
       <fourbg></fourbg>
-      <div class="cont_center flex-wrap">
+      
+      <div class="map_box">
+        <div id="allmap2">
+          <img src="../assets/img/icon/bg_s@1x.png" alt />
+        </div>
+      </div>
+    </div>
+<div class="cont_center flex-wrap">
+   <div style="position:absolute;left:50%;margin-left:-2.1875rem;margin-top:-2.875rem" @click="centerbotbool">
+        <el-button  type="" v-if="center_botbool" icon="el-icon-caret-bottom" plain style="height:1.875rem;width:4.375rem;padding:0"></el-button>
+        <el-button type="" v-else icon="el-icon-caret-top" plain style="height:1.875rem;width:4.375rem;padding:0"></el-button>
+    </div>
+
         <img class="topbg" src="../assets/img/xiugai/light_s@1x.png" alt />
         <img class="botbg" src="../assets/img/xiugai/light@1x.png" alt />
-        <div class="flex c_item" v-for="(item,i) of sjlist" :key="i">
+        <div v-show="center_botbool" class="flex c_item" v-for="(item,i) of sjlist" :key="i">
           <div>
             <img :src="item.img" alt />
           </div>
@@ -186,11 +198,6 @@
           </div>
         </div>
       </div>
-      <div class="map_box">
-        <div id="allmap2"></div>
-      </div>
-    </div>
-
     <div class="cont_center_mes" v-show="centerbool">
       <img class="liangguang" src="../assets/img/xiugai/liangguang@1x.png" alt />
       <fourbg class="fourbg"></fourbg>
@@ -254,7 +261,9 @@
       </div>
 
       <div class="teax_box">
-        <div class="teax_box_tit">调度信息文本</div>
+        <div class="teax_box_tit">
+          调度信息文本
+        </div>
         <div class="post_texa flex-between">
           <div class="texarea">
             <textarea v-model="text" cols="30" rows="10"></textarea>
@@ -307,6 +316,7 @@ export default {
   },
   data() {
     return {
+      center_botbool:false,
       text: "",
       zsbtn: false,
       value: "",
@@ -369,7 +379,7 @@ export default {
           bool: true,
         },
         {
-          img: require("../assets/img/icon/icon_jiankong@1x.png"),
+          img: require("../assets/img/icon/icon_jiankong@2x.png"),
           tit: "城市监控",
           num: 42354,
           bool: false,
@@ -407,7 +417,7 @@ export default {
         },
 
         {
-          img: require("../assets/img/icon/icon_matou@1x.png"),
+          img: require("../assets/img/icon/icon_matou@2x.png"),
           tit: "码头",
           num: 52,
           bool: false,
@@ -551,7 +561,7 @@ export default {
   mounted() {
     MapLoader().then((AMap) => {
       // console.log(AMap)
-      this.map([104.992084, 29.540502], 13, AMap);
+      this.map([104.963946, 29.542282], 11.8, AMap);
     });
     this.draw();
     this.myChart1();
@@ -569,6 +579,9 @@ export default {
   },
 
   methods: {
+    centerbotbool(){
+      this.center_botbool=!this.center_botbool
+    },
     carlistchange(i) {
       var newlist = this.carlist;
       for (var item of newlist) {
@@ -622,18 +635,74 @@ export default {
         // console.log(JSON.stringify(mask))
         var map = new AMap.Map("allmap2", {
           mask: mask,
-          resizeEnable: true,
           center: point,
           disableSocket: true,
           viewMode: "3D",
-          // mapStyle:that.$mapStyle,
+          features: ["bg", "road"],
+          mapStyle: that.$mapStyle,
           showLabel: false,
           labelzIndex: 130,
-          pitch: 42,
+          top: 0,
+          pitch: 48, //3D下有效果
+          // rotation: 45,//旋转角度
           resizeEnable: true,
+          rotateEnable: true,
           zoom: zoom,
-          layers: [googleLayer, new AMap.TileLayer.RoadNet({})],
+          // layers: [googleLayer],
         });
+
+        // var layer = new Loca.LinkLayer({
+        //   map: map,
+        //   fitView: false,
+        // });
+        // var linecir = [
+        //   {
+        //     lnglat: [
+        //       ["104.918467", "29.47055"],
+        //       ["104.937669", "29.490922"],
+        //     ],
+        //     dis: 1550,
+        //   },
+        //   {
+        //     lnglat: [
+        //       ["104.970444", "29.508862"],
+        //       ["104.949082", "29.463676"],
+        //     ],
+        //     dis: 1427,
+        //   },
+        //   {
+        //     lnglat: [["104.971218 ,29.626548"], ["104.927263 ,29.55435"]],
+        //     dis: 1620,
+        //   },
+        // ];
+        // layer.setData(linecir.slice(0, 3), {
+        //   lnglat: "lnglat",
+        // });
+        // console.log(linecir);
+
+        // layer.setOptions({
+        //   blendMode: "lighter",
+        //   style: {
+        //     // 曲率 [-1, 1] 区间
+        //     curveness: function (data) {
+        //       console.log(data)
+        //       if (data.value.dis < 100) {
+        //         return 0.07;
+        //       } else if (data.value.dis < 300) {
+        //         return 0.05;
+        //       } else if (data.value.dis < 500) {
+        //         return 0.02;
+        //       } else if (data.value.dis < 700) {
+        //         return 0.01;
+        //       } else {
+        //         return 0.005;
+        //       }
+        //     },
+        //     opacity: 0.9,
+        //     color: "#5DFBF9",
+        //   },
+        // });
+        // layer.render();
 
         var markercar,
           lineArr = [
@@ -731,7 +800,11 @@ export default {
         markercar = new AMap.Marker({
           map: map,
           position: point,
-          icon: "https://webapi.amap.com/images/car.png",
+          icon: new AMap.Icon({
+            image: require("../assets/img/cars/icon_huoche@1x.png"),
+            size: new AMap.Size(31, 16), //图标大小
+            imageSize: new AMap.Size(31, 16),
+          }),
           offset: new AMap.Pixel(-26, -13),
           autoRotation: true,
           angle: -5,
@@ -742,18 +815,18 @@ export default {
           map: map,
           path: lineArr,
           showDir: true,
-          strokeColor: "#f20", //线颜色
+          strokeColor: "#00f8f8", //线颜色
           strokeOpacity: 1, //线透明度
-          strokeWeight: 7, //线宽
+          strokeWeight: 2, //线宽
           // strokeStyle: "solid"  //线样式
         });
 
         var passedPolyline = new AMap.Polyline({
           map: map,
           // path: lineArr,
-          strokeColor: "#AF5", //线颜色
+          strokeColor: "#00f8f8", //线颜色
           // strokeOpacity: 1,     //线透明度
-          strokeWeight: 6, //线宽
+          strokeWeight: 2, //线宽
           // strokeStyle: "solid"  //线样式
         });
 
@@ -771,12 +844,12 @@ export default {
         // map.setFitView();
 
         function startAnimation() {
-          markercar.moveAlong(lineArr, 3000);
+          markercar.moveAlong(lineArr, 300);
         }
 
         startAnimation();
 
-        //第条路线
+        //第2条路线
         var markerline2,
           lineArr2 = [
             [105.070667, 29.573182],
@@ -848,7 +921,11 @@ export default {
         markerline2 = new AMap.Marker({
           map: map,
           position: point,
-          icon: "https://webapi.amap.com/images/car.png",
+          icon: new AMap.Icon({
+            image: require("../assets/img/cars/icon_keyunche@1x.png"),
+            size: new AMap.Size(31, 16), //图标大小
+            imageSize: new AMap.Size(31, 16),
+          }),
           offset: new AMap.Pixel(-26, -13),
           autoRotation: true,
           angle: -90,
@@ -859,32 +936,437 @@ export default {
           map: map,
           path: lineArr2,
           showDir: true,
-          strokeColor: "#f20", //线颜色
+          strokeColor: "#00f8f8", //线颜色
           // strokeOpacity: 1,     //线透明度
-          strokeWeight: 6, //线宽
+          strokeWeight: 2, //线宽
           // strokeStyle: "solid"  //线样式
         });
 
         var passedPolyline2 = new AMap.Polyline({
           map: map,
           // path: lineArr,
-          strokeColor: "#0086fb", //线颜色
+          strokeColor: "#00f8f8", //线颜色
           // strokeOpacity: 1,     //线透明度
-          strokeWeight: 6, //线宽
+          strokeWeight: 2, //线宽
           // strokeStyle: "solid"  //线样式
         });
 
         markerline2.on("moving", function (e) {
           passedPolyline2.setPath(e.passedPath);
-            if (e.passedPath.length == lineArr2.length){
+          if (e.passedPath.length == lineArr2.length) {
             startAnimation2();
           }
+        });
+        markerline2.on("click", function (e) {
+          map.setFitView([markerline2]);
         });
 
         function startAnimation2() {
           markerline2.moveAlong(lineArr2, 800);
         }
         startAnimation2();
+
+        //第3条线路
+        //第2条路线
+        var markerline3,
+          lineArr3 = [
+            [105.068057, 29.57677],
+            [105.06703, 29.578578],
+            [105.0678, 29.580986],
+            [105.067208, 29.582913],
+            [105.067711, 29.584083],
+            [105.067222, 29.584419],
+            [105.067884, 29.585573],
+            [105.067709, 29.586857],
+            [105.06626, 29.586458],
+            [105.065819, 29.586225],
+            [105.064783, 29.586031],
+            [105.063144, 29.586195],
+            [105.060586, 29.585387],
+            [105.058414, 29.584303],
+            [105.057309, 29.58338],
+            [105.055494, 29.582905],
+            [105.050028, 29.580194],
+            [105.046833, 29.576494],
+            [105.045877, 29.574093],
+            [105.04364, 29.573869],
+            [105.042112, 29.572683],
+            [105.041843, 29.571506],
+            [105.039802, 29.570119],
+            [105.039488, 29.568232],
+            [105.037696, 29.564392],
+            [105.035123, 29.563501],
+            [105.034343, 29.561945],
+            [105.034601, 29.560868],
+            [105.033433, 29.559083],
+            [105.030489, 29.557225],
+            [105.030167, 29.556608],
+            [105.025981, 29.552806],
+            [105.025735, 29.552426],
+            [105.025189, 29.550515],
+            [105.025159, 29.547642],
+            [105.022697, 29.546621],
+            [105.023057, 29.542305],
+            [105.023555, 29.540977],
+            [105.021143, 29.538808],
+            [105.020379, 29.536626],
+            [105.020217, 29.534995],
+            [104.993421, 29.529799],
+            [104.987749, 29.528745],
+            [104.987102, 29.526047],
+            [104.981494, 29.522552],
+            [104.977652, 29.524242],
+            [104.941886, 29.511462],
+            [104.930362, 29.509699],
+            [104.907452, 29.488049],
+            [104.904543, 29.488983],
+            [104.896942, 29.490173],
+            [104.894922, 29.495979],
+            [104.901285, 29.504336],
+            [104.906492, 29.517141],
+            [104.903307, 29.525654],
+            [104.909119, 29.529256],
+            [104.907509, 29.53603],
+            [104.899835, 29.542492],
+            [104.900346, 29.552998],
+            [104.904095, 29.561277],
+            [104.906304, 29.567236],
+            [104.904797, 29.576677],
+            [104.930453, 29.571694],
+            [104.941632, 29.572212],
+            [104.948026, 29.571052],
+            [104.962329, 29.568552],
+            [104.980755, 29.571308],
+            [104.994738, 29.604043],
+            [105.029916, 29.603793],
+            [105.032161, 29.598554],
+            [105.032615, 29.595123],
+            [105.035569, 29.593954],
+            [105.037345, 29.588742],
+            [105.038978, 29.586726],
+            [105.045976, 29.580736],
+            [105.048104, 29.579868],
+            [105.049924, 29.58016],
+            [105.055563, 29.582972],
+            [105.056458, 29.584555],
+            [105.061493, 29.587636],
+            [105.062581, 29.586038],
+            [105.064825, 29.58598],
+            [105.067656, 29.586881],
+            [105.067889, 29.585526],
+            [105.067256, 29.584393],
+            [105.06724, 29.582802],
+            [105.067831, 29.581231],
+            [105.067015, 29.578742],
+            [105.068075, 29.576738],
+          ];
+
+        markerline3 = new AMap.Marker({
+          map: map,
+          position: point,
+          icon: new AMap.Icon({
+            image: require("../assets/img/cars/icon_yanghuche@1x.png"),
+            size: new AMap.Size(31, 16), //图标大小
+            imageSize: new AMap.Size(31, 16),
+          }),
+          offset: new AMap.Pixel(-26, -13),
+          autoRotation: true,
+          angle: -90,
+        });
+
+        // 绘制轨迹
+        var polyline3 = new AMap.Polyline({
+          map: map,
+          path: lineArr3,
+          showDir: true,
+          strokeColor: "#00f8f8", //线颜色
+          // strokeOpacity: 1,     //线透明度
+          strokeWeight: 2, //线宽
+          // strokeStyle: "solid"  //线样式
+        });
+
+        var passedPolyline3 = new AMap.Polyline({
+          map: map,
+          // path: lineArr,
+          strokeColor: "#00f8f8", //线颜色
+          // strokeOpacity: 1,     //线透明度
+          strokeWeight: 2, //线宽
+          // strokeStyle: "solid"  //线样式
+        });
+
+        markerline3.on("moving", function (e) {
+          passedPolyline3.setPath(e.passedPath);
+          if (e.passedPath.length == lineArr3.length) {
+            startAnimation3();
+          }
+        });
+        markerline3.on("click", function (e) {
+          map.setFitView([markerline3]);
+        });
+
+        function startAnimation3() {
+          markerline3.moveAlong(lineArr3, 800);
+        }
+        startAnimation3();
+
+        //第4条线路
+        //第2条路线
+        var markerline4,
+          lineArr4 = [
+            [104.954009, 29.430186],
+            [104.954633, 29.431138],
+            [104.956024, 29.432254],
+            [104.95588, 29.433102],
+            [104.956646, 29.433771],
+            [104.957214, 29.434905],
+            [104.959029, 29.43802],
+            [104.960231, 29.438381],
+            [104.96003, 29.439996],
+            [104.957651, 29.441964],
+            [104.957557, 29.443259],
+            [104.96334, 29.443642],
+            [104.965088, 29.44557],
+            [104.964285, 29.450448],
+            [104.963822, 29.454673],
+            [104.964195, 29.457453],
+            [104.970789, 29.455538],
+            [104.970603, 29.45417],
+            [104.972906, 29.453946],
+            [104.974996, 29.452621],
+            [104.980124, 29.45417],
+            [104.983706, 29.450938],
+            [104.983934, 29.448999],
+            [104.990036, 29.45001],
+            [104.994771, 29.448749],
+            [104.998303, 29.450389],
+            [105.006019, 29.448654],
+            [105.008944, 29.450488],
+            [105.011067, 29.449707],
+            [105.012521, 29.451288],
+            [105.017282, 29.452824],
+            [105.018499, 29.455954],
+            [105.01978, 29.455641],
+            [105.021339, 29.460322],
+            [105.028461, 29.462661],
+            [105.027808, 29.466464],
+            [105.030813, 29.467845],
+            [105.030412, 29.470313],
+            [105.023493, 29.482183],
+            [105.012457, 29.478696],
+            [105.004817, 29.479646],
+            [104.99005, 29.491807],
+            [104.983487, 29.498132],
+            [104.979264, 29.509877],
+            [104.953139, 29.523566],
+            [104.950125, 29.512676],
+            [104.938255, 29.508877],
+            [104.930991, 29.503643],
+            [104.921852, 29.494992],
+            [104.916648, 29.487513],
+            [104.90573, 29.482741],
+            [104.903517, 29.473492],
+            [104.901271, 29.471901],
+            [104.903127, 29.469134],
+            [104.902479, 29.466841],
+            [104.905003, 29.464639],
+            [104.904273, 29.462413],
+            [104.911495, 29.45924],
+            [104.913241, 29.452883],
+            [104.911599, 29.452076],
+            [104.915403, 29.443431],
+            [104.916677, 29.442092],
+            [104.918667, 29.440974],
+            [104.923106, 29.440789],
+            [104.925408, 29.439922],
+            [104.927021, 29.440651],
+            [104.927912, 29.442164],
+            [104.929351, 29.446147],
+            [104.931338, 29.445634],
+            [104.93219, 29.447904],
+            [104.937491, 29.449553],
+            [104.944022, 29.451455],
+            [104.944721, 29.446763],
+            [104.944639, 29.442516],
+            [104.947948, 29.439183],
+          ];
+
+        markerline4 = new AMap.Marker({
+          map: map,
+          position: point,
+          icon: new AMap.Icon({
+            image: require("../assets/img/cars/icon_zhifache@1x.png"),
+            size: new AMap.Size(31, 16), //图标大小
+            imageSize: new AMap.Size(31, 16),
+          }),
+          // icon: require("../assets/img/icon/icon_car.png"),
+          offset: new AMap.Pixel(-26, -13),
+          autoRotation: true,
+          angle: -90,
+        });
+
+        // 绘制轨迹
+        var polyline4 = new AMap.Polyline({
+          map: map,
+          path: lineArr4,
+          showDir: true,
+          strokeColor: "#00f8f8", //线颜色
+          // strokeOpacity: 1,     //线透明度
+          strokeWeight: 2, //线宽
+          // strokeStyle: "solid"  //线样式
+        });
+
+        var passedPolyline4 = new AMap.Polyline({
+          map: map,
+          // path: lineArr,
+          strokeColor: "#00f8f8", //线颜色
+          // strokeOpacity: 1,     //线透明度
+          strokeWeight: 2, //线宽
+          // strokeStyle: "solid"  //线样式
+        });
+
+        markerline4.on("moving", function (e) {
+          passedPolyline4.setPath(e.passedPath);
+          if (e.passedPath.length == lineArr4.length) {
+            startAnimation4();
+          }
+        });
+        markerline4.on("click", function (e) {
+          map.setFitView([markerline4]);
+        });
+
+        function startAnimation4() {
+          markerline4.moveAlong(lineArr4, 800);
+        }
+        startAnimation4();
+
+        // 5  //
+        var markerline5,
+          lineArr5 = [
+            [104.95588, 29.433102],
+            [104.956646, 29.433771],
+            [104.957214, 29.434905],
+            [104.959029, 29.43802],
+            [104.960231, 29.438381],
+            [104.96003, 29.439996],
+            [104.957651, 29.441964],
+            [104.957557, 29.443259],
+            [104.96334, 29.443642],
+            [104.965088, 29.44557],
+            [104.964285, 29.450448],
+            [104.963822, 29.454673],
+            [104.964195, 29.457453],
+            [104.970789, 29.455538],
+            [104.970603, 29.45417],
+            [104.972906, 29.453946],
+            [104.974996, 29.452621],
+            [104.980124, 29.45417],
+            [104.983706, 29.450938],
+            [104.983934, 29.448999],
+            [104.990036, 29.45001],
+            [104.994771, 29.448749],
+            [104.998303, 29.450389],
+            [105.006019, 29.448654],
+            [105.008944, 29.450488],
+            [105.011067, 29.449707],
+            [105.012521, 29.451288],
+            [105.017282, 29.452824],
+            [105.018499, 29.455954],
+            [105.01978, 29.455641],
+            [105.021339, 29.460322],
+            [105.028461, 29.462661],
+            [105.027808, 29.466464],
+            [105.030813, 29.467845],
+            [105.030412, 29.470313],
+            [105.023493, 29.482183],
+            [105.012457, 29.478696],
+            [105.004817, 29.479646],
+            [104.99005, 29.491807],
+            [104.983487, 29.498132],
+            [104.979264, 29.509877],
+            [104.953139, 29.523566],
+            [104.950125, 29.512676],
+            [104.938255, 29.508877],
+            [104.930991, 29.503643],
+            [104.921852, 29.494992],
+            [104.916648, 29.487513],
+            [104.90573, 29.482741],
+            [104.903517, 29.473492],
+            [104.901271, 29.471901],
+            [104.903127, 29.469134],
+            [104.902479, 29.466841],
+            [104.905003, 29.464639],
+            [104.904273, 29.462413],
+            [104.911495, 29.45924],
+            [104.913241, 29.452883],
+            [104.911599, 29.452076],
+            [104.915403, 29.443431],
+            [104.916677, 29.442092],
+            [104.918667, 29.440974],
+            [104.923106, 29.440789],
+            [104.925408, 29.439922],
+            [104.927021, 29.440651],
+            [104.927912, 29.442164],
+            [104.929351, 29.446147],
+            [104.931338, 29.445634],
+            [104.93219, 29.447904],
+            [104.937491, 29.449553],
+            [104.944022, 29.451455],
+            [104.944721, 29.446763],
+            [104.944639, 29.442516],
+            [104.947948, 29.439183],
+            [104.956024, 29.432254],
+            [104.954633, 29.431138],
+            [104.954009, 29.430186],
+          ];
+
+        markerline5 = new AMap.Marker({
+          map: map,
+          position: point,
+          icon: new AMap.Icon({
+            image: require("../assets/img/cars/icon_xiaojiaoche@1x.png"),
+            size: new AMap.Size(31, 16), //图标大小
+            imageSize: new AMap.Size(31, 16),
+          }),
+          // icon: require("../assets/img/icon/icon_car.png"),
+          offset: new AMap.Pixel(-16, -13),
+          autoRotation: true,
+          angle: -90,
+        });
+
+        // 绘制轨迹
+        var polyline5 = new AMap.Polyline({
+          map: map,
+          path: lineArr5,
+          showDir: true,
+          strokeColor: "#00f8f8", //线颜色
+          // strokeOpacity: 1,     //线透明度
+          strokeWeight: 2, //线宽
+          // strokeStyle: "solid"  //线样式
+        });
+
+        var passedPolyline5 = new AMap.Polyline({
+          map: map,
+          // path: lineArr,
+          strokeColor: "#00f8f8", //线颜色
+          // strokeOpacity: 1,     //线透明度
+          strokeWeight: 2, //线宽
+          // strokeStyle: "solid"  //线样式
+        });
+
+        markerline5.on("moving", function (e) {
+          passedPolyline5.setPath(e.passedPath);
+          if (e.passedPath.length == lineArr5.length) {
+            startAnimation5();
+          }
+        });
+        markerline5.on("click", function (e) {
+          map.setFitView([markerline5]);
+        });
+
+        function startAnimation5() {
+          markerline5.moveAlong(lineArr5, 1600);
+        }
+        startAnimation5();
         // window.addEventListener()
 
         // });
@@ -907,8 +1389,8 @@ export default {
         //添加高度面
         var object3Dlayer = new AMap.Object3DLayer({ zIndex: 1 });
         map.add(object3Dlayer);
-        var height = -8000;
-        var color = "rgb(72,128,71)"; //rgba
+        var height = -5000;
+        var color = "#00f8f8"; //rgba
         var wall = new AMap.Object3D.Wall({
           path: bounds,
           height: height,
@@ -921,47 +1403,26 @@ export default {
           new AMap.Polyline({
             path: bounds[i],
             strokeColor: "#99ffff",
-            strokeWeight: 4,
+            strokeWeight: 6,
             map: map,
           });
         }
 
         addMarker();
         //养护公司
-        var yhcompany = [
-          { point: [105.069319, 29.586975], text: "爱德华汽车养护公司" },
-          { point: [105.065787, 29.589186], text: "内江市汽车养护公司" },
-          { point: [105.066012, 29.586341], text: "明明汽车养护公司" },
-        ];
-        var yscompany = [
+
+        var weixiu = [
           { point: [105.074705, 29.569962], text: "爱德华汽车运输公司" },
           { point: [105.074925, 29.586446], text: "内江市汽车运输公司" },
           { point: [105.073793, 29.591327], text: "明明汽车运输公司" },
         ];
-        for (var item of yhcompany) {
+
+        for (var item of weixiu) {
           var marker4 = new AMap.Marker({
             icon: new AMap.Icon({
-              image: require("../assets/img/icon/yhcompany.png"),
-              size: new AMap.Size(62, 62), //图标大小
-              // imageSize: new AMap.Size(32, 32)
-            }),
-            map: map,
-            position: item.point,
-            offset: new AMap.Pixel(-23, -30),
-          });
-
-          marker4.setMap(map);
-          marker4.setTitle(item.text);
-          marker4.content = item.text;
-          marker4.on("click", markerClick);
-        }
-
-        for (var item of yscompany) {
-          var marker4 = new AMap.Marker({
-            icon: new AMap.Icon({
-              image: require("../assets/img/icon/yscompany.png"),
-              size: new AMap.Size(62, 62), //图标大小
-              // imageSize: new AMap.Size(32, 32)
+              image: require("../assets/img/icon/icon_weixiu@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
             }),
             map: map,
             position: item.point,
@@ -977,15 +1438,18 @@ export default {
 
         // 码头
         // 105.066848 29.588996
-        var jiankong = [{ point: [105.066848, 29.588996], text: "xxx路口" }];
+        var jiankong = [
+          { point: [105.066848, 29.588996], text: "xxx路口" },
+          { point: [104.905982, 29.486257], text: "xxx路口" },
+        ];
         for (var item of jiankong) {
           var marker4 = new AMap.Marker({
-            icon: require("../assets/img/icon/icon_jiankong@1x.png"),
-            // icon: new AMap.Icon({
-            //   image: require("../assets/img/icon/icon_jiankong@1x.png"),
-            //   size: new AMap.Size(62, 62), //图标大小
-            //   imageSize: new AMap.Size(32, 32),
-            // }),
+            // icon: require("../assets/img/icon/icon_jiankong@1x.png"),
+            icon: new AMap.Icon({
+              image: require("../assets/img/icon/icon_jiankong@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
+            }),
             map: map,
             position: item.point,
             offset: new AMap.Pixel(-23, -30),
@@ -1006,9 +1470,9 @@ export default {
           var marker4 = new AMap.Marker({
             // icon: require("../assets/img/icon/icon_mt@1x.png"),
             icon: new AMap.Icon({
-              image: require("../assets/img/icon/icon_mt@1x.png"),
-              size: new AMap.Size(62, 62), //图标大小
-              imageSize: new AMap.Size(32, 32),
+              image: require("../assets/img/icon/icon_matou@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
             }),
             map: map,
             position: item.mat,
@@ -1021,28 +1485,26 @@ export default {
           marker4.on("click", markerClick);
         }
 
-        //监控
+        //监控104.905235 29.576941
 
         var jk = [
           { point: [104.929404, 29.509733], text: "道路养护人员:李晓迪" },
           { point: [104.922434, 29.501055], text: "道路养护人员:艾晓迪" },
-          { point: [105.066833, 29.586696], text: "道路养护人员:李晓迪" },
           { point: [104.926076, 29.507198], text: "道路养护人员:李晓迪" },
-          { point: [105.070851, 29.586244], text: "道路养护人员:李晓迪" },
-          { point: [105.068329, 29.594314], text: "道路养护人员:太晓迪" },
-          { point: [104.924186, 29.503487], text: "道路养护人员:李晓迪" },
+          { point: [104.905235, 29.576941], text: "道路养护人员:太晓迪" },
+          { point: [104.985365, 29.497083], text: "道路养护人员:李晓迪" },
         ];
         for (var item of jk) {
           var marker4 = new AMap.Marker({
             // icon: require("../assets/img/icon/icon_yh@1x.png"),
             icon: new AMap.Icon({
-              image: require("../assets/img/icon/icon_yh@1x.png"),
-              size: new AMap.Size(62, 62), //图标大小
-              imageSize: new AMap.Size(32, 32),
+              image: require("../assets/img/icon/icon_yanghu@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
             }),
             map: map,
             position: item.point,
-            offset: new AMap.Pixel(-23, -30),
+            offset: new AMap.Pixel(-10, -30),
           });
           marker4.setMap(map);
           marker4.setTitle(item.text);
@@ -1060,9 +1522,9 @@ export default {
           var marker4 = new AMap.Marker({
             // icon: require("../assets/img/icon/daolik.png"),
             icon: new AMap.Icon({
-              image: require("../assets/img/icon/daolik.png"),
-              size: new AMap.Size(32, 33), //图标大小
-              imageSize: new AMap.Size(22, 22),
+              image: require("../assets/img/icon/icon_daolukakou@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
             }),
             map: map,
             position: item.point,
@@ -1081,9 +1543,9 @@ export default {
           var marker4 = new AMap.Marker({
             // icon: require("../assets/img/icon/icon_che@1x.png"),
             icon: new AMap.Icon({
-              image: require("../assets/img/icon/icon_che@1x.png"),
-              size: new AMap.Size(62, 62), //图标大小
-              imageSize: new AMap.Size(32, 32),
+              image: require("../assets/img/icon/icon_gongjiao@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
             }),
             map: map,
             position: item.point,
@@ -1098,15 +1560,15 @@ export default {
         var wx = [
           { point: [105.046948, 29.579304], text: "维修站" },
           { point: [105.025492, 29.582325], text: "维修站" },
-          { point: [104.999968, 29.555988], text: "维修站" },
+          { point: [105.022418, 29.482286], text: "维修站" },
         ];
         for (var item of wx) {
           var marker4 = new AMap.Marker({
             // icon:,
             icon: new AMap.Icon({
-              image: require("../assets/img/icon/icon_wxz@1x.png"),
-              size: new AMap.Size(62, 62), //图标大小
-              imageSize: new AMap.Size(32, 32),
+              image: require("../assets/img/icon/icon_weixiu@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
             }),
             map: map,
             position: item.point,
@@ -1135,9 +1597,9 @@ export default {
           // });
           var marker = new AMap.Marker({
             icon: new AMap.Icon({
-              image: require("../assets/img/icon/icon_bjsj@2x.png"),
-              size: new AMap.Size(62, 62), //图标大小
-              imageSize: new AMap.Size(36, 36),
+              image: require("../assets/img/icon/icon_gaojing@1x.png"),
+              size: new AMap.Size(20, 23), //图标大小
+              imageSize: new AMap.Size(20, 23),
             }),
             map: map,
             zIndex: 500,
@@ -1155,9 +1617,9 @@ export default {
 
         var marker2 = new AMap.Marker({
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_bjsj@2x.png"),
-            size: new AMap.Size(62, 62), //图标大小
-            imageSize: new AMap.Size(36, 36),
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(20, 23), //图标大小
+            imageSize: new AMap.Size(20, 23),
           }),
           map: map,
           zIndex: 500,
@@ -1176,9 +1638,9 @@ export default {
           // icon: ,
           map: map,
           icon: new AMap.Icon({
-            image: require("../assets/img/icon/icon_bjsj@2x.png"),
-            size: new AMap.Size(62, 62), //图标大小
-            imageSize: new AMap.Size(36, 36),
+            image: require("../assets/img/icon/icon_gaojing@1x.png"),
+            size: new AMap.Size(20, 23), //图标大小
+            imageSize: new AMap.Size(20, 23),
           }),
           zIndex: 500,
           position: [105.031898, 29.575864],
@@ -1258,10 +1720,15 @@ export default {
         // };
 
         var markerxl = new AMap.Marker({
-          icon: require("../assets/img/icon/yellowkk (1).png"),
+          // icon: require("../assets/img/icon/icon_kakou@1x.png"),
+          icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_kakou@1x.png"),
+            size: new AMap.Size(20, 23), //图标大小
+            imageSize: new AMap.Size(20, 23),
+          }),
           map: map,
           position: [104.985258, 29.546838],
-          offset: new AMap.Pixel(-10, -15),
+          offset: new AMap.Pixel(-10, -35),
         });
 
         markerxl.setMap(map);
@@ -1271,7 +1738,12 @@ export default {
         });
 
         var markerxl2 = new AMap.Marker({
-          icon: require("../assets/img/icon/yellowkk (1).png"),
+          // icon: require("../assets/img/icon/icon_kakou@1x.png"),
+          icon: new AMap.Icon({
+            image: require("../assets/img/icon/icon_kakou@1x.png"),
+            size: new AMap.Size(20, 23), //图标大小
+            imageSize: new AMap.Size(20, 23),
+          }),
           map: map,
           position: [104.950386, 29.518668],
           offset: new AMap.Pixel(-10, -35),
@@ -1338,7 +1810,7 @@ export default {
 
           return info;
         }
-       
+
         var path = [
           [104.991897, 29.552534],
           [104.991119, 29.552119],
@@ -1483,7 +1955,7 @@ export default {
             detail: {
               show: true,
               formatter: "{value}",
-              textStyle: { fontSize: 18 },
+              textStyle: { fontSize: 14 },
             },
             radius: "80%",
             data: [
@@ -1514,7 +1986,7 @@ export default {
               show: true, // 是否显示标题,默认 true。
               offsetCenter: [0, "85%"], //相对于仪表盘中心的偏移位置，数组第一项是水平方向的偏移，第二项是垂直方向的偏移。可以是绝对的数值，也可以是相对于仪表盘半径的百分比。
               color: "#fff", // 文字的颜色,默认 #333。
-              fontSize: 16, // 文字的字体大小,默认 15。
+              fontSize: 14, // 文字的字体大小,默认 15。
             },
             axisTick: {
               show: true,
@@ -1564,7 +2036,7 @@ export default {
             detail: {
               show: true,
               formatter: "{value}",
-              textStyle: { fontSize: 18 },
+              textStyle: { fontSize: 14 },
             },
             radius: "80%",
             data: [
@@ -1595,7 +2067,7 @@ export default {
               show: true, // 是否显示标题,默认 true。
               offsetCenter: [0, "85%"], //相对于仪表盘中心的偏移位置，数组第一项是水平方向的偏移，第二项是垂直方向的偏移。可以是绝对的数值，也可以是相对于仪表盘半径的百分比。
               color: "#fff", // 文字的颜色,默认 #333。
-              fontSize: 16, // 文字的字体大小,默认 15。
+              fontSize: 14, // 文字的字体大小,默认 15。
             },
             axisTick: {
               show: true,
@@ -1645,7 +2117,7 @@ export default {
             detail: {
               show: true,
               formatter: "{value}",
-              textStyle: { fontSize: 18 },
+              textStyle: { fontSize: 14 },
             },
             radius: "80%",
             data: [
@@ -1676,7 +2148,7 @@ export default {
               show: true, // 是否显示标题,默认 true。
               offsetCenter: [0, "85%"], //相对于仪表盘中心的偏移位置，数组第一项是水平方向的偏移，第二项是垂直方向的偏移。可以是绝对的数值，也可以是相对于仪表盘半径的百分比。
               color: "#fff", // 文字的颜色,默认 #333。
-              fontSize: 16, // 文字的字体大小,默认 15。
+              fontSize: 14, // 文字的字体大小,默认 15。
             },
             axisTick: {
               show: true,
@@ -1723,9 +2195,13 @@ export default {
         color: ["#FE0600", "#1DFFE8", "#00A73F", "#FFCA60"],
         legend: {
           orient: "vertical",
-          right: "2%",
+          right: "4%",
+           icon:'rect',
+           itemWidth:15,
+        itemHeight:15,
           top: "20%",
-          data: ["紧急养护处理", "日常养护", "养护巡查", "其他事件"],
+          data: ["紧急养护", "日常养护", "养护巡查", "其他事件"],
+          fontSize:14,
           textStyle: {
             color: ["#FE0600", "#1DFFE8", "#00A73F", "#FFCA60"],
           },
@@ -1733,7 +2209,7 @@ export default {
           formatter: function (name) {
             var total = 0;
             var data = [
-              { value: 335, name: "紧急养护处理" },
+              { value: 335, name: "紧急养护" },
               { value: 310, name: "日常养护" },
               { value: 234, name: "养护巡查" },
               { value: 158, name: "其他事件" },
@@ -1763,7 +2239,7 @@ export default {
             emphasis: {
               label: {
                 show: true,
-                fontSize: "18",
+                fontSize: "14",
                 fontWeight: "bold",
               },
             },
@@ -1771,7 +2247,7 @@ export default {
               show: false,
             },
             data: [
-              { value: 335, name: "紧急养护处理" },
+              { value: 335, name: "紧急养护" },
               { value: 310, name: "日常养护" },
               { value: 234, name: "养护巡查" },
               { value: 158, name: "其他事件" },
@@ -1863,14 +2339,15 @@ export default {
 }
 .cont_left {
   width: 18%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
+  overflow-y: auto;
   z-index: 99;
   top: 0;
   padding-top: 10rem;
   left: 1.25rem;
   .item {
-    margin-bottom: 1rem;
+    // margin-bottom: 1rem;
     .tit_bot_img {
       margin-top: -0.7075rem;
     }
@@ -1882,9 +2359,11 @@ export default {
 
   .item_l {
     width: 100%;
-    height: 19vh;
+    // height:18.625rem;
+    // margin-bottom: 2.5rem;
+    // min-height:12.5rem;
     position: relative;
-    margin-top: 0.5rem;
+    // margin-top: 0.5rem;
 
     // padding: 0.625rem;
     .circles_box {
@@ -1900,6 +2379,7 @@ export default {
     border: 0.0625rem solid #026ba3c9;
     .flex-around {
       margin-bottom: 1.875rem;
+      margin-top:1rem;
     }
     // img {
     //   position: absolute;
@@ -1911,13 +2391,15 @@ export default {
   }
 }
 .ptit {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
+  // height:1.5625rem;
   color: #fefefe;
 }
 .item_l_2 {
   position: relative;
-  height: 26vh;
-  margin-top: 2.525rem;
+  // height: 22vh;
+  // min-height:14.6875rem;
+  margin-top: .525rem;
   // padding: 0.625rem;
 }
 #myChart,
@@ -1928,6 +2410,8 @@ export default {
 .center_text {
   position: absolute;
   width: 5rem;
+  min-width:55px;
+  min-height:55px;
   height: 5rem;
   padding: 1.25rem;
   text-align: center;
@@ -1956,7 +2440,9 @@ export default {
 }
 .item_l_3 {
   width: 100%;
-  height: 29vh;
+  // height: 32vh;
+  margin-top:.525rem;
+  // min-height:17.8125rem;
   position: relative;
 
   .ybp {
@@ -1966,13 +2452,15 @@ export default {
     position: relative;
     .btns {
       div {
-        width: 4rem;
+        width: 6rem;
+        min-width:70px;
+        min-height:20px;
         text-align: center;
         margin: 0.25rem;
         border-radius: 0.9375rem;
         font-size: 0.8125rem;
         cursor: pointer;
-        height: 1.25rem;
+        // height: 1.55rem;
         border: 0.0625rem solid #0086fb;
       }
       .active {
@@ -1982,7 +2470,7 @@ export default {
     }
   }
   .three_ybp {
-    height: 9.375rem;
+    height: 10.375rem;
     > div {
       width: 33%;
       height: 100%;
@@ -1993,7 +2481,7 @@ export default {
     width: 90%;
     margin: auto;
     position: relative;
-    margin-bottom: 1.25rem;
+    margin-bottom: 2.25rem;
     border: 0.0625rem solid #084f8ddc;
     img {
       position: absolute;
@@ -2034,8 +2522,9 @@ export default {
 
 .cont_right {
   width: 19%;
-  height: 100%;
+  height: 100vh;
   position: absolute;
+  overflow-y: auto;
   background: rgb(8, 23, 62);
   top: 0;
   z-index: 99;
@@ -2085,13 +2574,13 @@ export default {
   .item2 {
     > div {
       width: 47%;
-      height: 5rem;
+      min-height: 62px;
       margin-bottom: 0.625rem;
       padding-left: 1.375rem;
       padding-top: 0.625rem;
       background: url(../assets/img/xiugai/111@1x.png);
       background-repeat: no-repeat;
-      background-size: 100%;
+      background-size:100% 100%;
     }
     p:first-child {
       font-size: 1rem;
@@ -2116,7 +2605,7 @@ export default {
       }
     }
     .dlyh_canvas {
-      height: 9.375rem;
+      height: 12.375rem;
       background: rgba(20, 44, 90, 0.9);
       border: 0.0625rem solid #026ba3c9;
     }
@@ -2134,14 +2623,15 @@ export default {
     }
     .changebtn {
       margin-bottom: 0.625rem;
-      margin-top: 0.3125rem;
+      // margin-top: 1.3125rem;
       > span {
         color: #0086fb;
         border: 0.0625rem solid #0086fb;
         display: block;
-        width: 4.375rem;
-        height: 1.5875rem;
-        line-height: 1.5875rem;
+        width: 5.375rem;
+        min-width:64px;
+        height: 1.7875rem;
+        line-height: 1.7875rem;
         text-align: center;
         border-radius: 0.9375rem;
         font-size: 0.875rem;
@@ -2153,7 +2643,8 @@ export default {
       }
     }
     .videobox {
-      height: 30vh;
+      height:11.75rem;
+      min-height: 200px;
       background: rgba(7, 23, 60, 0.2);
       overflow-y: auto;
       > div {
@@ -2181,18 +2672,21 @@ export default {
 .center_box {
   width: 58%;
   position: relative;
-  height: 81vh;
+  height: 71vh;
   margin-top: 0.5rem;
   left: 50%;
   margin-left: -29%;
 }
 .cont_center {
-  width: 100%;
+  width: 58%;
   // height: 9.375rem;
-  position: absolute;
+  position: fixed;
+  z-index: 999;
+  background: rgba(20, 44, 90, 0.9);
   display: flex;
   flex-wrap: wrap;
-  bottom: 0;
+  bottom: .2rem;
+  margin-left: 21%;
   border: 0.0625rem solid #026ba3c9;
   padding: 0.9375rem;
   .topbg {
@@ -2206,10 +2700,11 @@ export default {
     left: 20%;
   }
   .c_item {
-    width: 9.5rem;
-    margin-left: 0.125rem;
+      width: 9.5rem;
+    min-width: 110px;
+    margin-left: 1.125rem;
     padding-left: 0.925rem;
-    margin-top: 0.825rem;
+    margin-top: .5rem;
     img {
       width: 1.875rem;
       height: 1.875rem;
@@ -2229,13 +2724,20 @@ export default {
 }
 .map_box {
   width: 100%;
-  height: 64vh;
+  height:70vh;
+
   #allmap2 {
     width: 100%;
     height: 100%;
     position: relative;
     z-index: 99;
-    background: url(../assets/img/icon/mapbg.png) !important;
+    background: transparent !important;
+    > img {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      object-fit: contain;
+    }
   }
 }
 .annou_box {
@@ -2483,7 +2985,7 @@ export default {
   }
   width: 40%;
   position: absolute;
-  z-index: 99;
+  z-index: 999;
   right: 22%;
   top: 22%;
   border: 0.0625rem solid #026ba3c9;
